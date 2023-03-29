@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TableSortLabel,
 } from '@mui/material';
-import { calcPercentChange } from '../helpers/dataFormat';
 import PropTypes from 'prop-types';
+import { calcPercentChange } from '../helpers/dataFormat';
 
 import './HistoryTable.css';
 
