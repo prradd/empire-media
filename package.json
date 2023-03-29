@@ -28,23 +28,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "plugins": [
-      "security",
-      "material-ui",
-      "import"
-    ],
     "extends": [
       "react-app",
-      "react-app/jest",
-      "airbnb",
-      "plugin:import/react",
-      "plugin:import/recommended",
-      "plugin:security/recommended"
-    ],
-    "rules": {
-      "import/no-extraneous-dependencies": 0,
-      "no-console": "error"
-    }
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
