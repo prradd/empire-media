@@ -1,0 +1,49 @@
+.header {
+  font-family: "Helvetica","Arial",sans-serif;
+  height: 128px;
+}
+
+h4.title {
+  font-family: "Helvetica","Arial",sans-serif;
+  font-size: 2em;
+  font-weight: 600;
+  color: #000000;
+}
+
+.under-title {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #969696;
+}
+
+.stock-value {
+  font-family: "Helvetica","Arial",sans-serif;
+}
+
+.price {
+  font-size: 3em;
+  font-weight: bold;
+  color: #000000;
+}
+
+.up-arrow {
+  margin-bottom: 20px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 17px solid green;
+}
+
+.down-arrow {
+  margin-top: 20px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 17px solid red;
+}
+
+.red-text {
+  color: red;
+}
+
+.green-text {
+  color: green;
+}
