@@ -1,42 +1,11 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import './Body.css';
-
-function TabPanel(props) {
-  const {
-    children, value, index,
-  } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-TabPanel.defaultProps = {
-  children: {},
-};
+import TabPanel from './TabPanel';
+import HistoryTable from './HistoryTable';
 
 function Body() {
   const [value, setValue] = React.useState(0);
@@ -67,7 +36,7 @@ function Body() {
         Item One
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <HistoryTable />
       </TabPanel>
     </Box>
   );

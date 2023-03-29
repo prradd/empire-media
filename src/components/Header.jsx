@@ -4,35 +4,20 @@ import Box from '@mui/material/Box';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import { Grid, Paper } from '@mui/material';
 import PropTypes from 'prop-types';
+import { formatSocketMessage } from '../helpers/dataFormat';
 
 import './Header.css';
 
 const wsUrl = 'wss://wstest.fxempire.com?token=btctothemoon';
 
-const formatData = (data) => {
-  const {
-    last, change, percentChange, lastUpdate,
-  } = data;
-  const formattedLast = parseFloat(last).toFixed(2);
-  const formattedChange = parseFloat(change).toFixed(2);
-  const formattedPercentChange = `${percentChange}%`;
-  const formattedLastUpdate = new Date(lastUpdate).toLocaleString();
-  return {
-    last: formattedLast,
-    change: formattedChange,
-    percentChange: formattedPercentChange,
-    lastUpdate: formattedLastUpdate,
-  };
-};
-
 function Header({ stockName, instrument }) {
+  const [stockData, setStockData] = useState({});
+
   const instruments = [instrument];
   const subscribeMsg = JSON.stringify({ type: 'SUBSCRIBE', instruments });
   const unsubscribeMsg = JSON.stringify({ type: 'UNSUBSCRIBE', instruments });
 
-  const [stockData, setStockData] = useState({});
-
-  const [isStockUp, setIsStockUp] = useState(true);
+  const isStockUp = stockData?.change > 0;
 
   useEffect(() => {
     const ws = new ReconnectingWebSocket(wsUrl, [], {
@@ -48,7 +33,7 @@ function Header({ stockName, instrument }) {
     ws.addEventListener('message', (event) => {
       const msgData = JSON.parse(event.data);
       if (msgData[instrument]) {
-        setStockData(formatData(msgData[instrument]));
+        setStockData(formatSocketMessage(msgData[instrument]));
       }
     });
 
@@ -61,12 +46,6 @@ function Header({ stockName, instrument }) {
       ws.close();
     };
   }, []);
-
-  useEffect(() => {
-    if (stockData?.change) {
-      setIsStockUp(stockData.change > 0);
-    }
-  }, [stockData]);
 
   return (
     <Paper
