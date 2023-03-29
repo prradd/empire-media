@@ -61,7 +61,6 @@ function Header({ stockName, instrument }) {
       <Grid
         container
         direction="row"
-        // justifyContent="space-between"
         alignItems="center"
         spacing={3}
       >
@@ -84,7 +83,7 @@ function Header({ stockName, instrument }) {
               <Grid container direction="row" justifyContent="center" alignItems="center">
                 <Grid item xs={12} className="stock-value">
                   <Grid container direction="row" alignItems="center">
-                    <Typography variant="h6" component="h3" className="">
+                    <Typography variant="h6" component="h3">
                       {isStockUp ? (
                         <div className="up-arrow" />
                       ) : (

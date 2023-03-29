@@ -1,57 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TableSortLabel,
 } from '@mui/material';
-import getStockCandles from '../api/stockApi';
 import { calcPercentChange } from '../helpers/dataFormat';
+import PropTypes from 'prop-types';
+
+import './HistoryTable.css';
 
 export const tableColumns = [
-  { id: 'date', label: 'Date' },
-  { id: 'high', label: 'High' },
-  { id: 'low', label: 'Low' },
-  { id: 'open', label: 'Open' },
-  { id: 'close', label: 'Close' },
+  { id: 'Date', label: 'Date' },
+  { id: 'High', label: 'High' },
+  { id: 'Low', label: 'Low' },
+  { id: 'Open', label: 'Open' },
+  { id: 'Close', label: 'Close' },
   { id: 'percentChange', label: '% Change' },
 ];
 
-function HistoryTable() {
-  const [rows, setRows] = useState([]);
+function HistoryTable({ stockData }) {
+  const [rows, setRows] = useState(stockData);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('date');
-
-  useEffect(() => {
-    getStockCandles({
-      period: 1,
-      Precision: 'Hours',
-      StartTime: '02/22/2023',
-      EndTime: '03/01/2023 23:59',
-    }).then((data) => {
-      setRows(data);
-    });
-  }, []);
-
-  useEffect(() => {
-    const sortedRows = rows.sort((a, b) => {
-      if (order === 'asc') {
-        return a[orderBy] - b[orderBy];
-      }
-      return b[orderBy] - a[orderBy];
-    });
-    setRows(sortedRows);
-  }, [order, orderBy]);
 
   const onRequestSort = (id) => {
     const isAsc = orderBy === id && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(id);
+    const sortedData = [...rows]
+      .sort((a, b) => (isAsc ? a[orderBy] - b[orderBy] : b[orderBy] - a[orderBy]));
+    setRows(sortedData);
   };
 
   return (
     <Paper>
       <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
+        <Table className="table">
+          <TableHead className="table-head">
+            <TableRow className="table-head-row">
               {tableColumns.map(({ id, label }) => (
                 <TableCell
                   key={id}
@@ -68,19 +52,27 @@ function HistoryTable() {
             </TableRow>
           </TableHead>
 
-          <TableBody>
+          <TableBody className="table-body">
             {rows.map(({
               StartDate, StartTime, High, Low, Open, Close,
-            }) => (
-              <TableRow hover key={StartDate + StartTime}>
-                <TableCell>{StartDate}</TableCell>
-                <TableCell>{High}</TableCell>
-                <TableCell>{Low}</TableCell>
-                <TableCell>{Open}</TableCell>
-                <TableCell>{Close}</TableCell>
-                <TableCell>{calcPercentChange(Open, Close)}</TableCell>
-              </TableRow>
-            ))}
+            }) => {
+              const percentChange = calcPercentChange(Open, Close);
+              return (
+                <TableRow hover key={StartDate + StartTime}>
+                  <TableCell>{StartDate}</TableCell>
+                  <TableCell>{High}</TableCell>
+                  <TableCell>{Low}</TableCell>
+                  <TableCell>{Open}</TableCell>
+                  <TableCell>{Close}</TableCell>
+                  <TableCell
+                    className={percentChange > 0 ? 'green-text' : 'red-text'}
+                  >
+                    {percentChange}
+                    %
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -88,4 +80,19 @@ function HistoryTable() {
   );
 }
 
+HistoryTable.propTypes = {
+  stockData: PropTypes.arrayOf(PropTypes.shape({
+    StartDate: PropTypes.string,
+    StartTime: PropTypes.string,
+    High: PropTypes.number,
+    Low: PropTypes.number,
+    Open: PropTypes.number,
+    Close: PropTypes.number,
+    Date: PropTypes.string,
+  })),
+};
+
+HistoryTable.defaultProps = {
+  stockData: [],
+};
 export default HistoryTable;

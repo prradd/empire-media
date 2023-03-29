@@ -1,0 +1,21 @@
+.table {
+  font-family: "Helvetica", "Arial", sans-serif;
+}
+
+.table-head {
+
+}
+
+.table-head-row {
+  background-color: #f2f2f2;
+
+}
+
+.table-head-row th {
+  font-weight: bold;
+  color: #282828;
+}
+
+.table-body td {
+  font-weight: bold;
+}
