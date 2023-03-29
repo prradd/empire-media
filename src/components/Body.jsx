@@ -41,7 +41,7 @@ function Body() {
     >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
-          tabValue={tabValue}
+          value={tabValue}
           onChange={handleChange}
           aria-label="basic tabs example"
           className="tabs-container"
