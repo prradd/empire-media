@@ -1,4 +1,5 @@
 .tabs-container button {
+  font-size: 1.2em;
   text-transform: unset;
   font-weight: bold;
 }

@@ -1,0 +1,23 @@
+.button-group button,
+.button-group button:hover,
+.button-group button:active,
+.button-group button:focus {
+  color: #282828;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: unset;
+  border: unset;
+  background: unset;
+}
+
+.button-group button:focus,
+.button-group button:hover,
+.button-group button:active {
+  border-bottom: 2px solid rgba(40, 40, 40, 0.5);
+}
+
+.button-group .contained {
+  border-bottom: 2px solid #282828;
+  border-radius: unset;
+}
+

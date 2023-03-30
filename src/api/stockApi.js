@@ -1,7 +1,12 @@
+import { formatTime } from '../helpers/dateAndTime';
+
 const getStockCandles = async ({
-  period, Precision, StartTime, EndTime,
+  period, precision: Precision, startTime, endTime,
 }) => {
   const apiUrl = 'https://test.fxempire.com/api/v1/en/stocks/chart/candles';
+  const StartTime = formatTime(startTime);
+  const EndTime = formatTime(endTime);
+
   const queryParams = new URLSearchParams({
     Identifier: 'AAPL.XNAS',
     IdentifierType: 'Symbol',
@@ -18,8 +23,7 @@ const getStockCandles = async ({
 
   try {
     const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     return [];
   }
