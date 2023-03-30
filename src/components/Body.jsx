@@ -87,7 +87,7 @@ function Body() {
         <OverviewChart stockData={stockData} period={period} onPeriodChange={setPeriod} />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <HistoryTable stockData={stockData} />
+        <HistoryTable stockData={stockData} period={period} onPeriodChange={setPeriod} />
       </TabPanel>
     </Box>
   );

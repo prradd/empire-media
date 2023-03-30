@@ -7,8 +7,9 @@ function CustomTooltip({ active, payload, label }) {
   if (active && payload) {
     return (
       <div className="custom-tooltip">
-        <p className="label">{`Date: ${label}`}</p>
-        <p className="value">{`Close: ${payload[0].value}`}</p>
+        <span className="label">{`Date: ${label}`}</span>
+        <br />
+        <span className="value">{`Close: ${payload[0].value}`}</span>
       </div>
     );
   }

@@ -79,7 +79,7 @@ function Header({ stockName, instrument }) {
         <Grid item md={4} lg={6} />
         <Grid item md={4} lg={3}>
           {stockData?.last && (
-            <Box className="">
+            <Box className="price-box">
               <Grid container direction="row" justifyContent="center" alignItems="center">
                 <Grid item xs={12} className="stock-value">
                   <Grid container direction="row" alignItems="center">
