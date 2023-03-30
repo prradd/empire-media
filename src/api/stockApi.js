@@ -22,7 +22,7 @@ const getStockCandles = async ({
   const url = `${apiUrl}?${queryParams.toString()}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { cache: 'force-cache' });
     return await response.json();
   } catch (error) {
     return [];
